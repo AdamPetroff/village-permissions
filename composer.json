@@ -1,0 +1,16 @@
+{
+    "name": "adam/village-permissions",
+    "authors": [
+        {
+            "name": "Adam Petroff",
+            "email": "adam.petroff@thefuntasty.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "silex/silex": "^2.2",
+        "nette/neon": "^2.4",
+        "nette/database": "^2.4",
+        "nette/di": "^2.4"
+    }
+}

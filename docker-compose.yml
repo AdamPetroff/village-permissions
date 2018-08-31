@@ -1,0 +1,54 @@
+version: '2.1'
+
+services:
+  php-apache:
+#    container_name: miska_php-apache
+    build: ops/docker/php-apache
+    environment:
+      DOCKER: 'true'
+    ports:
+      - 8080:80
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+
+#  php:
+#    container_name: miska_php
+#    build: ops/docker/php
+#    environment:
+#      DOCKER: 'true'
+#    volumes:
+#      - .:/var/www/html
+#    working_dir: /var/www/html
+#    links:
+#      - php-apache
+
+  db:
+#    container_name: miska_db
+    build: ops/docker/db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: miska
+    ports:
+      - 3306:3306
+
+  composer:
+#    container_name: miska_composer
+    image: composer:latest
+    depends_on:
+      - php-apache
+    command: install
+    volumes:
+      - .:/var/www/html
+    working_dir: /var/www/html
+
+  adminer:
+#    container_name: miska_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8088:8080

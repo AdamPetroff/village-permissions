@@ -1,0 +1,16 @@
+parameters:
+    db:
+        dsn:
+        user:
+        password:
+
+php:
+    date.timezone: Europe/Prague
+
+database:
+    dsn: %db.dsn%
+    user: %db.user%
+    password: %db.password%
+    options:
+        lazy: true
+    debugger: false
