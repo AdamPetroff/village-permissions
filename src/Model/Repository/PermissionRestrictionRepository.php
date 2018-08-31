@@ -1,11 +1,11 @@
 <?php
 
-namespace VillageProject\Model;
+namespace VillageProject\Model\Repository;
 
 use Nette\Database\Context;
 use Nette\Database\UniqueConstraintViolationException;
 
-class PermissionRestrictionRepository
+final class PermissionRestrictionRepository
 {
     private $context;
 

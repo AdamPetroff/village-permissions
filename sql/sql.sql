@@ -28,7 +28,7 @@ INSERT INTO `village`
 ('Brno'),
 ('Praha');
 
-INSERT INTO `user_admin` (`name`, `created_at`) VALUES
+INSERT INTO `user_admin` (`name`) VALUES
 ('Adam'),
 ('Martin'),
 ('Erik'),

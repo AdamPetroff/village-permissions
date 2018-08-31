@@ -3,40 +3,31 @@
 namespace VillageProject;
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use VillageProject\Model\PermissionService;
+use VillageProject\Handler\GetVillagesHandler;
+use VillageProject\Handler\PostPermissionsForAdminUserHandler;
 
-class Router
+final class Router
 {
-    private $permissionService;
     private $application;
+    private $getVillagesHandler;
+    private $postPermissionsForAdminUserHandler;
 
-    public function __construct(Application $application, PermissionService $permissionService)
-    {
-        $this->permissionService = $permissionService;
+    public function __construct(
+        Application $application,
+        GetVillagesHandler $getVillagesHandler,
+        PostPermissionsForAdminUserHandler $postPermissionsForAdminUserHandler
+    ) {
         $this->application = $application;
+        $this->getVillagesHandler = $getVillagesHandler;
+        $this->postPermissionsForAdminUserHandler = $postPermissionsForAdminUserHandler;
     }
 
     public function setRoutes()
     {
-        $permissionService = $this->permissionService;
-
         $this->application->get('/user-admin/{userAdminId}/permission/{permission}/villages',
-            function (Request $request, int $userAdminId, string $permission) use ($permissionService) {
-                return new JsonResponse($permissionService->get($userAdminId, $permission));
-            }
-        );
+            $this->getVillagesHandler);
 
         $this->application->post('/user-admin/{userAdminId}/permissions',
-            function (Request $request, int $userAdminId) use ($permissionService) {
-                $requestBody = json_decode($request->getContent(), true);
-
-                $permissionService->set($userAdminId, $requestBody);
-
-                return new Response();
-            }
-        );
+            $this->postPermissionsForAdminUserHandler);
     }
 }

@@ -1,12 +1,16 @@
 <?php
 
-namespace VillageProject\Model;
+namespace VillageProject\Model\Facade;
 
 use Exception;
 use Nette\Database\Context;
 use Symfony\Component\HttpFoundation\Response;
+use VillageProject\Model\Permission;
+use VillageProject\Model\Repository\PermissionRestrictionRepository;
+use VillageProject\Model\Repository\VillageRepository;
+use VillageProject\Model\Village;
 
-class PermissionService
+final class PermissionFacade
 {
     private $context;
     private $permissionRestrictionRepository;

@@ -2,7 +2,7 @@
 
 namespace VillageProject\Model;
 
-class Permission
+final class Permission
 {
     public const ADDRESS_BOOK = 'addressbook';
     public const SEARCH = 'search';

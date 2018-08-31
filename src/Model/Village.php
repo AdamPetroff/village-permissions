@@ -2,7 +2,7 @@
 
 namespace VillageProject\Model;
 
-class Village implements \JsonSerializable
+final class Village implements \JsonSerializable
 {
     private $id;
     private $name;
@@ -13,7 +13,7 @@ class Village implements \JsonSerializable
         $this->name = $name;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'id' => $this->id,

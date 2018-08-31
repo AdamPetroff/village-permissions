@@ -1,10 +1,11 @@
 <?php
 
-namespace VillageProject\Model;
+namespace VillageProject\Model\Repository;
 
 use Nette\Database\Context;
+use VillageProject\Model\Village;
 
-class VillageRepository
+final class VillageRepository
 {
     private $context;
 

@@ -13,10 +13,8 @@ const CONFIG_DIR = ROOT_DIR . 'config/';
 
 require __DIR__ . '/vendor/autoload.php';
 
-$debug = false;
-
 $loader = new ContainerLoader(TEMP_DIR, getenv('DOCKER') === 'true');
-$class = $loader->load(function (Compiler $compiler) use ($debug) {
+$class = $loader->load(function (Compiler $compiler) {
     $compiler->loadConfig(CONFIG_DIR . '/config.neon');
 
     $compiler->addConfig([
@@ -25,6 +23,8 @@ $class = $loader->load(function (Compiler $compiler) use ($debug) {
             'tempDir' => TEMP_DIR,
         ],
     ]);
+
+    $debug = $compiler->getConfig()['parameters']['debug'];
 
     $compiler->addExtension('database', new DatabaseExtension($debug));
     $compiler->addExtension('php', new PhpExtension());
