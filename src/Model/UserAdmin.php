@@ -2,7 +2,7 @@
 
 namespace VillageProject\Model;
 
-final class Village implements \JsonSerializable
+final class UserAdmin
 {
     private $id;
     private $name;
@@ -11,14 +11,6 @@ final class Village implements \JsonSerializable
     {
         $this->id = $id;
         $this->name = $name;
-    }
-
-    public function jsonSerialize(): array
-    {
-        return [
-            'id' => $this->id,
-            'name' => $this->name
-        ];
     }
 
     public function getId(): int

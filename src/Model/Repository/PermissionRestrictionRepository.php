@@ -17,14 +17,14 @@ final class PermissionRestrictionRepository
     /** Returns null if the record already exists */
     public function addRestriction(int $userAdminId, int $villageId, string $permission): ?int
     {
-        try{
-            $this->context->table('permission_restriction')->insert([
+        try {
+            $permissionRestrictionRow = $this->context->table('permission_restriction')->insert([
                 'user_admin_id' => $userAdminId,
                 'village_id' => $villageId,
                 'permission' => $permission
             ]);
 
-            return $this->context->getInsertId();
+            return $permissionRestrictionRow->id;
         } catch (UniqueConstraintViolationException $e) {
             return null;
         }
@@ -37,5 +37,13 @@ final class PermissionRestrictionRepository
             'village_id' => $villageId,
             'permission' => $permission
         ])->delete();
+    }
+
+    public function permissionRestrictionForUserAdminExists(string $permission, int $userAdminId): bool
+    {
+        return (bool)$this->context->table('permission_restriction')->where([
+            'user_admin_id' => $userAdminId,
+            'permission' => $permission
+        ])->count();
     }
 }

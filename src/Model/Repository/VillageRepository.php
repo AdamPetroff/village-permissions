@@ -15,10 +15,9 @@ final class VillageRepository
     }
 
     /** @return Village[] */
-    public function getVillagesExcept(array $villageIds): array
+    public function getVillages(): array
     {
-        $villageRows = $this->context->table('village')
-            ->where('id NOT IN (?)', $villageIds ?: [0]);
+        $villageRows = $this->context->table('village')->fetchAll();
 
         $villages = [];
         foreach ($villageRows as $villageRow){
@@ -26,5 +25,12 @@ final class VillageRepository
         }
 
         return $villages;
+    }
+
+    public function addVillage(string $villageName): int
+    {
+        $villageRow = $this->context->table('village')->insert(['name' => $villageName]);
+
+        return $villageRow->id;
     }
 }

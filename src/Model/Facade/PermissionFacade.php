@@ -61,6 +61,13 @@ final class PermissionFacade
 
         $restrictedVillageIds = $permissionRestrictionRows->fetchPairs(null, 'village_id');
 
-        return $this->villageRepository->getVillagesExcept($restrictedVillageIds);
+        $villages = [];
+        foreach ($this->villageRepository->getVillages() as $village) {
+            if(!in_array($village->getId(), $restrictedVillageIds)){
+                $villages[] = $village;
+            }
+        }
+
+        return $villages;
     }
 }

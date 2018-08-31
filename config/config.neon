@@ -24,3 +24,6 @@ services:
     - VillageProject\Model\Repository\VillageRepository
     - VillageProject\Handler\GetVillagesHandler
     - VillageProject\Handler\PostPermissionsForAdminUserHandler
+    - VillageProject\Handler\PostVillageHandler
+    - VillageProject\Model\Facade\VillageFacade
+    - VillageProject\Model\Repository\UserAdminRepository
