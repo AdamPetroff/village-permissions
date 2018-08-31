@@ -12,5 +12,10 @@
         "nette/neon": "^2.4",
         "nette/database": "^2.4",
         "nette/di": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "VillageProject\\": "src/"
+        }
     }
 }

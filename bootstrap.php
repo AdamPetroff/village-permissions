@@ -5,14 +5,15 @@ use Nette\Bridges\DatabaseDI\DatabaseExtension;
 use Nette\DI\Compiler;
 use Nette\DI\ContainerLoader;
 use Nette\DI\Extensions\PhpExtension;
+use VillageProject\Router;
 
-const ROOT_DIR = __DIR__ . '/../';
+const ROOT_DIR = __DIR__ . '/';
 const TEMP_DIR = ROOT_DIR . 'temp/';
 const CONFIG_DIR = ROOT_DIR . 'config/';
 
 require __DIR__ . '/vendor/autoload.php';
 
-$debug = true;
+$debug = false;
 
 $loader = new ContainerLoader(TEMP_DIR, getenv('DOCKER') === 'true');
 $class = $loader->load(function (Compiler $compiler) use ($debug) {
@@ -21,7 +22,7 @@ $class = $loader->load(function (Compiler $compiler) use ($debug) {
     $compiler->addConfig([
         'parameters' => [
             'rootDir' => ROOT_DIR,
-            'tempDir' => $this->tempDir,
+            'tempDir' => TEMP_DIR,
         ],
     ]);
 
@@ -34,5 +35,10 @@ $class = $loader->load(function (Compiler $compiler) use ($debug) {
 $container = new $class;
 
 $container->initialize();
+
+/** @var Router $router */
+$router = $container->getByType(Router::class);
+
+$router->setRoutes();
 
 return $container;

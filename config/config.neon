@@ -1,8 +1,8 @@
 parameters:
     db:
-        dsn:
-        user:
-        password:
+        dsn: "mysql:host=db;dbname=village-permissions"
+        user: root
+        password: root
 
 php:
     date.timezone: Europe/Prague
@@ -14,3 +14,10 @@ database:
     options:
         lazy: true
     debugger: false
+
+services:
+    - Silex\Application
+    - VillageProject\Router
+    - VillageProject\Model\PermissionService
+    - VillageProject\Model\PermissionRestrictionRepository
+    - VillageProject\Model\VillageRepository
